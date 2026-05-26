@@ -1,1 +1,1 @@
-# Blog for OpenAPI for Contract Testing 📄
+# Ujjwal's Blog
