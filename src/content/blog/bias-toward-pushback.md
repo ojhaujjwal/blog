@@ -13,31 +13,45 @@ tags:
   - leadership
 ---
 
-Engineering culture shifts as startups grow into corporate enterprises. Somewhere along the way, "pushing back" became the ultimate badge of senior engineering.
+Engineering culture shifts as startups grow into corporate enterprises. Somewhere along the way, "pushing back" became the most visible marker of senior engineering.
 
-We celebrate the tech lead who says "no" to a new feature and the staff engineer who vetoes a new tool. The developer who guards the status quo against scope creep gets the same treatment. Boundaries matter for stability, but the default has become anti-innovation.
+We celebrate the tech lead who says "no" to a new feature and the staff engineer who vetoes a new tool. But pushback isn't inherently bad. Experienced engineers push back for good reasons — they've seen migrations fail, watched teams chase shiny tools off a cliff, and lived through the cleanup. The problem isn't pushback itself. It's that we've stopped distinguishing between thoughtful pushback and reflexive resistance. When every "no" is celebrated equally, the reward signal gets noisy.
 
-We built a culture that rewards resistance over curiosity.
+Boundaries matter for stability. The codebase that says "yes" to everything becomes a liability. But the pendulum has swung far enough that the default posture, especially in larger organisations, has tilted toward anti-innovation.
 
-### Trickle-down resistance
+We built a culture that rewards resistance more reliably than curiosity.
 
-The glorification of pushback trickles down. Junior and mid-level engineers now push back on simple, constructive PR suggestions.
+### When pushback was right
 
-When a reviewer suggests a cleaner pattern or a newer utility, the default response is a defensive block: "That's out of scope" or "Let's not introduce new things here."
+Let's be clear: the industry's bias toward pushback didn't come from nowhere. It came from scars.
 
-They aren't defending against technically flawed ideas. Company culture taught them that saying "no" sounds mature and senior. Shutting down small-scale experimentation on a PR signals stagnation, not maturity. We're training developers to value rigid consistency over questioning the status quo.
+Think about the microservices gold rush of the mid-2010s. Teams that pushed back against splitting their monolith into dozens of services were often right. The operational complexity exploded, debugging across network boundaries became a nightmare, and many organisations spent years undoing the damage. The engineers who said "no" back then weren't being anti-innovation — they were reading the cost side of the equation correctly.
 
-### Migration excuse
+Same story with the JavaScript framework churn of the 2010s. The teams that resisted jumping from Backbone to Angular to React to Vue every eighteen months made a defensible call. Stability has value. There's a difference between resisting change and resisting churn.
 
-Ask a tech lead why they resist new tools or techniques and the answer is almost always the same: the cost of migration.
+And then there are the database rewrites that killed companies. Moving from one database to another mid-flight has sunk startups. Pushback against those migrations wasn't cowardice — it was survival instinct.
+
+The point isn't that pushback is always wrong. Far from it. The point is that pushback has become the *default* posture, regardless of context. Thoughtful resistance based on experience is healthy. Reflexive resistance based on cultural incentives is not. The question is: when you push back, are you drawing from scar tissue that applies to this specific situation, or are you just reaching for the "no" that gets you promoted?
+
+### What juniors learn from watching seniors
+
+When pushback is the most rewarded behaviour in an organisation, people pay attention — especially engineers early in their careers.
+
+Here's a pattern that plays out in code reviews: a reviewer suggests a cleaner pattern or a newer utility. The author responds, "That's out of scope" or "Let's not introduce new things here" — not because the suggestion is technically flawed, but because the author has learned that saying "no" sounds mature.
+
+This isn't anyone's fault. It's a rational response to the incentives. If the organisation celebrates the person who holds the line more visibly than the person who takes a chance on a better approach, people adapt. Over time, the cultural signal shifts from "question the status quo" to "protect the status quo." Small-scale experimentation on a PR gets shut down not out of malice, but out of a learned instinct that resistance equals professionalism.
+
+### The migration calculation
+
+Ask a tech lead why they hesitate on a new tool or technique and the answer is often the same: the cost of migration.
 
 "If we adopt this new library, we have to rewrite the whole codebase."
 
 "We don't have the bandwidth for a massive migration."
 
-The costs they name are real. Time spent rewriting working code. Upskilling the team. Splitting attention from feature work. The risk of breaking something that already runs in production.
+The costs they name are real — and worth taking seriously. Time spent rewriting working code. Upskilling the team. Splitting attention from feature work. The risk of breaking something that runs in production. Anyone who dismisses these costs hasn't migrated a production system.
 
-What's missing from the calculation is the value side. How much faster will the next feature ship on the new foundation? How many hours do we lose each month to the old thing's quirks and onboarding friction? Nobody builds the value column. They tally the cost column, see a positive number, and call that a no.
+But here's what's frequently missing from the calculation: the value side. How much faster will the next feature ship on the new foundation? How many hours do we lose each month to the old thing's quirks and onboarding friction? Nobody builds the value column. They tally the cost column, see a positive number, and call that a no.
 
 But "no" is safer to defend than "yes." If you block a migration and nothing changes, nobody notices. If you approve it and it goes wrong, you own it. That asymmetry pushes the default toward resistance.
 
@@ -55,11 +69,11 @@ AI doesn't just write new code. It's an intelligent migration script that unders
 
 ### Reclaiming curiosity
 
-Stop over-celebrating the pushback. Protect your systems from reckless instability, but don't make "no" your default.
+None of this means we should stop pushing back. Thoughtful resistance will always have a place — the scars from bad migrations and premature adoption are real. But we can bring better balance to the conversation.
 
-Engineering teams should pursue new ideas. Encourage developers at every level to ask, "Is there a better way to do this?" and reward them for trying.
+Protect your systems from reckless instability, but notice when "no" has become your reflex rather than your reasoned conclusion. Reward the person who builds the value column alongside the cost column, even when the answer is still no. Celebrate the tech lead who says, "Not yet, but here's what would need to be true."
 
-The tools for managing technical transitions are better than ever. We just need the cultural permission to use them.
+Encourage developers at every level to ask, "Is there a better way to do this?" and make it safe for them to explore the answer. The tools for managing technical transitions are better than ever. We need the cultural permission to use them — and that starts with recognising that curiosity and caution aren't opposites.
 
 ---
 
