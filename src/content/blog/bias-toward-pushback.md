@@ -69,6 +69,8 @@ The "migration is too hard" argument gets weaker every quarter. We aren't limite
 
 With the right guardrails, the heavy lifting of code migrations can be automated. Feed the model specific constraints, wrap the output in deterministic checks (test suites, lint rules, type checkers), and let it process the boilerplate. The edge cases and implicit invariants still need human attention, but the tedious 80% gets faster every year.
 
+Cloudflare shipped [vinext](https://blog.cloudflare.com/vinext/) in 2026. It's a Next.js-compatible Vite plugin with 1,700 tests, built by one engineer with AI assistance in a week for about $1,100. Tanner Linsley [projected a minimal React runtime](https://tannerlinsley.com/posts/projecting-react) in a day. 700 tests passed. Bundles came in 80% smaller. It shipped on production.
+
 AI isn't a magic wand. Context windows are finite. Models miss invariants they can't see. Agentic workflows bring their own unpredictability. With clear instructions and deterministic guardrails, migrations that once took months now take weeks.
 
 ### Reclaiming curiosity
