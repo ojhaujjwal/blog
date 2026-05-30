@@ -13,25 +13,17 @@ tags:
   - leadership
 ---
 
-Engineering culture shifts as startups grow into corporate enterprises. Somewhere along the way, "pushing back" became the most visible marker of senior engineering.
+"Pushing back" has become the most visible marker of senior engineering.
 
-We celebrate the tech lead who says "no" to a new feature and the staff engineer who vetoes a new tool. But pushback isn't inherently bad. Experienced engineers push back for good reasons — they've seen migrations fail, watched teams chase shiny tools off a cliff, and lived through the cleanup. The problem isn't pushback itself. It's that we've stopped distinguishing between thoughtful pushback and reflexive resistance. When every "no" is celebrated equally, the reward signal gets noisy.
-
-Boundaries matter for stability. The codebase that says "yes" to everything becomes a liability. But the pendulum has swung far enough that the default posture, especially in larger organisations, has tilted toward anti-innovation.
+We celebrate the tech lead who says "no" to a new feature and the staff engineer who vetoes a new tool. Boundaries matter for stability, but the default posture — especially in larger organisations — has tilted toward anti-innovation.
 
 We built a culture that rewards resistance more reliably than curiosity.
 
 ### When pushback was right
 
-Let's be clear: the industry's bias toward pushback didn't come from nowhere. It came from scars.
+The bias didn't come from nowhere. The microservices gold rush burned teams that should have stayed monolithic. JavaScript framework churn of the 2010s rewarded teams that held still. Database rewrites have sunk startups. In all these cases, the engineers who said "no" were right.
 
-Think about the microservices gold rush of the mid-2010s. Teams that pushed back against splitting their monolith into dozens of services were often right. The operational complexity exploded, debugging across network boundaries became a nightmare, and many organisations spent years undoing the damage. The engineers who said "no" back then weren't being anti-innovation — they were reading the cost side of the equation correctly.
-
-Same story with the JavaScript framework churn of the 2010s. The teams that resisted jumping from Backbone to Angular to React to Vue every eighteen months made a defensible call. Stability has value. There's a difference between resisting change and resisting churn.
-
-And then there are the database rewrites that killed companies. Moving from one database to another mid-flight has sunk startups. Pushback against those migrations wasn't cowardice — it was survival instinct.
-
-The point isn't that pushback is always wrong. Far from it. The point is that pushback has become the *default* posture, regardless of context. Thoughtful resistance based on experience is healthy. Reflexive resistance based on cultural incentives is not. The question is: when you push back, are you drawing from scar tissue that applies to this specific situation, or are you just reaching for the "no" that gets you promoted?
+The point isn't that pushback is always wrong. The point is that pushback has become the *default* posture, regardless of context. Thoughtful resistance based on experience is healthy. Reflexive resistance based on cultural incentives is not. The question is: when you push back, are you drawing from scar tissue that applies to this specific situation, or are you just reaching for the "no" that gets you promoted?
 
 ### What juniors learn from watching seniors
 
@@ -59,21 +51,33 @@ One cost argument that rarely gets enough weight is the opportunity cost of the 
 
 New ideas are hard to integrate, but they rarely demand an all-at-once rewrite. The best teams use gradual migration strategies: isolate the new technique to a specific domain or implement the Strangler Fig pattern, slowly deprecating the old way without pausing feature development. You don't have to boil the ocean to make a cup of tea.
 
+### The firefighting trap
+
+Beneath the cultural bias sits a deeper layer: what actually gets rewarded.
+
+Putting out a production fire is visible, urgent, and heroic. The person who ships a hotfix to unblock a sprint comes out looking great. Performance reviews love it.
+
+Making an architectural improvement so that fire never happens? Nobody sees it. You can't prove you prevented eight hours of downtime — the counterfactual is invisible. When the preventer and the firefighter compete for the same promotion, the firefighter's highlight reel wins every time.
+
+This isn't irrational. It's the system working exactly as designed. If you want more long-term thinking, fix what gets measured. Track leading indicators: incident frequency trends, time-to-recovery, ratio of preventative work to reactive work. Culture follows the scorecard.
+
+But the scorecard isn't the whole story. Leaders who publicly celebrate a migration well done — or a disaster quietly avoided — shift what the team thinks is valued, even before the formal metrics catch up. Engineering culture is shaped by what leadership visibly rewards, not just what appears on the review form.
+
 ### AI changes the math
 
 The "migration is too hard" argument gets weaker every quarter. We aren't limited to manual find-and-replace drudgery anymore.
 
-With the right AI integration, the heavy lifting of code migrations can be automated. Feed the model specific constraints and write solid test suites to catch its hallucinations; then let it process the boilerplate. Sweeping refactors take a fraction of the time.
+With the right guardrails, the heavy lifting of code migrations can be automated. Feed the model specific constraints, wrap the output in deterministic checks — test suites, lint rules, type checkers — and let it process the boilerplate. The edge cases and implicit invariants still need human attention, but the tedious 80% gets faster every year.
 
-AI doesn't just write new code. It's an intelligent migration script that understands context. The manual parts of migrating to a new technique shrink every day.
+AI isn't a magic wand. Context windows are finite, models miss invariants they can't see, and agentic workflows introduce their own unpredictability. But with clear instructions and deterministic guardrails, migrations that once took months now take weeks.
 
 ### Reclaiming curiosity
 
 None of this means we should stop pushing back. Thoughtful resistance will always have a place — the scars from bad migrations and premature adoption are real. But we can bring better balance to the conversation.
 
-Protect your systems from reckless instability, but notice when "no" has become your reflex rather than your reasoned conclusion. Reward the person who builds the value column alongside the cost column, even when the answer is still no. Celebrate the tech lead who says, "Not yet, but here's what would need to be true."
+Protect your systems from reckless instability, but notice when "no" has become your reflex rather than your reasoned conclusion. Reward the person who builds the value column alongside the cost column, even when the answer is still no. Celebrate the tech lead who says, "Not yet, but here's what would need to be true." Celebrate the person who prevents the incident — not just the one who fixes it.
 
-Encourage developers at every level to ask, "Is there a better way to do this?" and make it safe for them to explore the answer. The tools for managing technical transitions are better than ever. We need the cultural permission to use them — and that starts with recognising that curiosity and caution aren't opposites.
+Encourage developers at every level to ask, "Is there a better way to do this?" and make it safe for them to explore the answer. The tools for managing technical transitions are better than ever. Change the scorecard, publicly reward the quiet prevention work, and recognise that curiosity and caution aren't opposites.
 
 ---
 
