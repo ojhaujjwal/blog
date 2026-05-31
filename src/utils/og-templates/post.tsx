@@ -1,9 +1,14 @@
 import satori from "satori";
 import type { CollectionEntry } from "astro:content";
-import { SITE } from "@config";
 import loadGoogleFonts, { type FontOptions } from "../loadGoogleFont";
 
 export default async (post: CollectionEntry<"blog">) => {
+  const dateStr = post.data.pubDatetime.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+
   return satori(
     <div
       style={{
@@ -54,16 +59,34 @@ export default async (post: CollectionEntry<"blog">) => {
             height: "90%",
           }}
         >
-          <p
+          <div
             style={{
-              fontSize: 72,
-              fontWeight: "bold",
-              maxHeight: "84%",
-              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              maxHeight: "80%",
             }}
           >
-            {post.data.title}
-          </p>
+            <p
+              style={{
+                fontSize: 60,
+                fontWeight: "bold",
+                lineHeight: 1.2,
+                marginBottom: 16,
+              }}
+            >
+              {post.data.title}
+            </p>
+            <p
+              style={{
+                fontSize: 28,
+                color: "#555",
+                lineHeight: 1.4,
+              }}
+            >
+              {post.data.description}
+            </p>
+          </div>
           <div
             style={{
               display: "flex",
@@ -73,23 +96,11 @@ export default async (post: CollectionEntry<"blog">) => {
               fontSize: 28,
             }}
           >
-            <span>
-              by{" "}
-              <span
-                style={{
-                  color: "transparent",
-                }}
-              >
-                "
-              </span>
-              <span style={{ overflow: "hidden", fontWeight: "bold" }}>
-                {post.data.author}
-              </span>
+            <span style={{ fontWeight: "bold" }}>
+              by {post.data.author}
             </span>
 
-            <span style={{ overflow: "hidden", fontWeight: "bold" }}>
-              {SITE.title}
-            </span>
+            <span style={{ color: "#666" }}>{dateStr}</span>
           </div>
         </div>
       </div>
@@ -99,7 +110,7 @@ export default async (post: CollectionEntry<"blog">) => {
       height: 630,
       embedFont: true,
       fonts: (await loadGoogleFonts(
-        post.data.title + post.data.author + SITE.title + "by"
+        post.data.title + post.data.description + post.data.author + dateStr + "by"
       )) as FontOptions[],
     }
   );
