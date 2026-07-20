@@ -3,8 +3,12 @@
 const currentUrlPath = Astro.url.pathname.replace(/\/+$/, "");
 
 // Get url array from path
-// eg: /tags/tailwindcss => ['tags', 'tailwindcss']
-const breadcrumbList = currentUrlPath.split("/").slice(1);
+// eg: /blog/tags/tailwindcss => ['blog', 'tags', 'tailwindcss']
+let breadcrumbList = currentUrlPath.split("/").slice(1);
+
+// Detect if we're in blog sub-routes and strip the 'blog' segment
+const isBlog = breadcrumbList[0] === "blog";
+if (isBlog) breadcrumbList = breadcrumbList.slice(1);
 
 // if breadcrumb is Home > Posts > 1 <etc>
 // replace Posts with Posts (page number)
@@ -44,7 +48,7 @@ breadcrumbList[0] === "tags" &&
           </li>
         ) : (
           <li>
-            <a href={`/${breadcrumb}/`}>{breadcrumb}</a>
+            <a href={`${isBlog ? "/blog" : ""}/${breadcrumb}/`}>{breadcrumb}</a>
             <span aria-hidden="true">&raquo;</span>
           </li>
         )

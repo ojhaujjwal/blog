@@ -1,33 +1,176 @@
 ---
-import { getCollection } from "astro:content";
-import getSortedPosts from "@utils/getSortedPosts";
-import PostDetails from "@layouts/PostDetails.astro";
-import Card from "@components/Card";
-
-const posts = await getCollection("blog");
-const sortedPosts = getSortedPosts(posts);
-
-const featured = sortedPosts.find(p => p.data.featured);
-const remaining = sortedPosts.filter(p => p.slug !== featured?.slug);
+import { SITE } from "@config";
+import Layout from "@layouts/Layout.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import Socials from "@components/Socials.astro";
 ---
 
-{
-  featured && (
-    <PostDetails post={featured} posts={sortedPosts} />
-  )
-}
+<Layout title={`${SITE.title} — Senior Software Engineer`}>
 
-<hr class="my-8 border-dashed" />
+  <main id="main-content" class="mx-auto max-w-3xl px-4 pb-16 pt-8">
+    <!-- Hero -->
+    <section class="mb-14">
+      <h1 class="text-3xl font-bold sm:text-4xl text-skin-accent">{SITE.author}</h1>
+      <p class="mt-1 text-lg text-skin-base/80">Senior Software Engineer</p>
+      <p class="mt-4 max-w-xl leading-relaxed">
+        I am a Senior Software Engineer who unblocks business bottlenecks and uplifts engineering standards by designing heavy-typed, contract-tested systems rooted in Domain-Driven Design and event-driven architectures.
+      </p>
+      <div class="mt-4">
+        <Socials />
+      </div>
+    </section>
 
-<section class="mx-auto w-full max-w-3xl px-4 pb-12">
-  <h2 class="mb-6 text-xl font-semibold text-skin-accent">All Posts</h2>
-  <ul>
-    {
-      remaining.map(({ data, slug }) => (
-        <li class="my-6">
-          <Card href={`/blog/${slug}/`} frontmatter={data} />
-        </li>
-      ))
-    }
-  </ul>
-</section>
+    <!-- Experience -->
+    <section class="mb-14">
+      <h2 class="mb-6 text-xl font-semibold tracking-wide">Experience</h2>
+      <div class="space-y-8">
+
+        <div>
+          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
+            <h3 class="font-medium">Senior Software Engineer — <span class="text-skin-accent">Maytes (formerly KttiPay)</span>, North Sydney</h3>
+            <span class="text-sm text-skin-base/60">APR 2024 — Present</span>
+          </div>
+          <ul class="mt-2 list-disc pl-5 space-y-1 text-sm leading-relaxed">
+            <li>Led the setup of OpenAPI based API to enable ease of integration for mobile apps.</li>
+            <li>Led the rewrite of legacy systems towards modular (event driven and contract driven) architecture of monolithic backend, while also supporting business to add new features.</li>
+            <li>Co-led the architecture and migration plan of moving Banking Platform from Shaype to Airwallex to enable the company to launch the product in the US.</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
+            <h3 class="font-medium">Team Lead — <span class="text-skin-accent">Shippit</span>, Sydney</h3>
+            <span class="text-sm text-skin-base/60">AUG 2023 — FEB 2024</span>
+          </div>
+          <ul class="mt-2 list-disc pl-5 space-y-1 text-sm leading-relaxed">
+            <li>Led the team in discovery and delivery on multiple iterations of a complex, one-of-a-kind logistics optimisation tool which required a deep understanding of logic frameworks and customer needs.</li>
+            <li>Collaborated with Design and Product to investigate integration solutions and provide recommendations to improve our reporting functionality.</li>
+            <li>Mentored fellow engineers and conducted code reviews to ensure software quality.</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
+            <h3 class="font-medium">Senior Software Engineer — <span class="text-skin-accent">Shippit</span>, Sydney</h3>
+            <span class="text-sm text-skin-base/60">SEP 2021 — AUG 2023</span>
+          </div>
+          <ul class="mt-2 list-disc pl-5 space-y-1 text-sm leading-relaxed">
+            <li>Led feature implementation in backend (Node, TypeScript) and in frontend (React).</li>
+            <li>Implemented advanced monitoring and observability capabilities using DataDog to improve tech resilience.</li>
+            <li>Upgraded a critical Aurora Postgres database on prod with close to zero downtime.</li>
+            <li>Setup technical infra for multiple services on AWS with a proven track of handling millions of orders in a day.</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
+            <h3 class="font-medium">Software Engineer — <span class="text-skin-accent">The Iconic</span>, Sydney</h3>
+            <span class="text-sm text-skin-base/60">APR 2019 — SEP 2021</span>
+          </div>
+          <ul class="mt-2 list-disc pl-5 space-y-1 text-sm leading-relaxed">
+            <li>Migrated integration of multiple third party systems smoothly, resulting in zero downtime for our user base.</li>
+            <li>Introduced Domain Driven Design and CQRS to architecture a new PHP-based microservice.</li>
+            <li>Contributed to troubleshooting and resolving website outages and prepared subsequent incident reports.</li>
+            <li>Automated end-to-end CI build and deployment for new services using Kubernetes and Terraform on AWS.</li>
+            <li>Re-engineered PHP/JS microservices to handle increased traffic.</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
+            <h3 class="font-medium">Software Engineer — <span class="text-skin-accent">Logpoint</span></h3>
+            <span class="text-sm text-skin-base/60">OCT 2017 — MAR 2019</span>
+          </div>
+          <ul class="mt-2 list-disc pl-5 space-y-1 text-sm leading-relaxed">
+            <li>Worked on a distributed system for Managed Security Service Provider (MSSP).</li>
+            <li>Collaborated with other engineering teams to ensure API compatibility and smoothly develop new features.</li>
+            <li>Engineered an event-based system to scale the distributed system of MSSP asynchronously.</li>
+            <li>Engineered a system for MSSP to be able to handle multiple versions of a SIEM system.</li>
+            <li>Utilised background job scaling tools including RabbitMQ to design features.</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
+            <h3 class="font-medium">Software Engineer — <span class="text-skin-accent">Introcept Nepal</span></h3>
+            <span class="text-sm text-skin-base/60">AUG 2016 — SEP 2017</span>
+          </div>
+          <ul class="mt-2 list-disc pl-5 space-y-1 text-sm leading-relaxed">
+            <li>Worked on Agentcis, a SaaS CRM solution for education and migration consultants.</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
+            <h3 class="font-medium">Software Engineer (Contracting) — <span class="text-skin-accent">Yiwii LLC</span></h3>
+            <span class="text-sm text-skin-base/60">AUG 2015 — AUG 2016</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
+            <h3 class="font-medium">Software Developer — <span class="text-skin-accent">Hrevert Technologies</span></h3>
+            <span class="text-sm text-skin-base/60">MAY 2013 — AUG 2015</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="mb-14">
+      <h2 class="mb-4 text-xl font-semibold tracking-wide">Skills</h2>
+      <div class="space-y-3">
+        <div>
+          <span class="text-sm font-medium text-skin-accent">Languages:</span>
+          <div class="mt-1 flex flex-wrap gap-2">
+            <span class="rounded bg-skin-card px-2.5 py-1 text-xs">TypeScript / JavaScript</span>
+            <span class="rounded bg-skin-card px-2.5 py-1 text-xs">Node.js</span>
+            <span class="rounded bg-skin-card px-2.5 py-1 text-xs">React</span>
+            <span class="rounded bg-skin-card px-2.5 py-1 text-xs">PHP</span>
+            <span class="rounded bg-skin-card px-2.5 py-1 text-xs">Ruby</span>
+            <span class="rounded bg-skin-card px-2.5 py-1 text-xs">Python</span>
+          </div>
+        </div>
+        <div>
+          <span class="text-sm font-medium text-skin-accent">Ops &amp; Infrastructure:</span>
+          <div class="mt-1 flex flex-wrap gap-2">
+            <span class="rounded bg-skin-card px-2.5 py-1 text-xs">Docker</span>
+            <span class="rounded bg-skin-card px-2.5 py-1 text-xs">DevOps</span>
+            <span class="rounded bg-skin-card px-2.5 py-1 text-xs">SRE</span>
+            <span class="rounded bg-skin-card px-2.5 py-1 text-xs">Terraform</span>
+            <span class="rounded bg-skin-card px-2.5 py-1 text-xs">Kubernetes</span>
+            <span class="rounded bg-skin-card px-2.5 py-1 text-xs">GCP</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section class="mb-14">
+      <h2 class="mb-4 text-xl font-semibold tracking-wide">Education</h2>
+      <div>
+        <p class="font-medium">Bachelor of Science in Computer Science and Information Technology</p>
+        <p class="text-sm text-skin-base/60">Tribhuvan University, Kathmandu</p>
+      </div>
+    </section>
+
+    <!-- Blog CTA -->
+    <section class="border-t border-dashed pt-8">
+      <p class="text-center">
+        <a href="/blog/" class="text-lg underline decoration-dashed underline-offset-4 hover:text-skin-accent"
+          >Read my blog &rarr;</a
+        >
+      </p>
+    </section>
+  </main>
+
+  <Footer noMarginTop />
+</Layout>
+
+<style>
+  #main-content {
+    @apply mx-auto w-full max-w-3xl px-4 pb-12;
+  }
+</style>

@@ -68,7 +68,7 @@ const structuredData = {
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="author" content={author} />
-    <link rel="sitemap" href="/blog/sitemap-index.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:title" content={title} />
@@ -134,11 +134,16 @@ const structuredData = {
 
     <ViewTransitions />
 
-    <script is:inline src="/blog/toggle-theme.js" async></script>
+    <script is:inline src="/toggle-theme.js" async></script>
 
     <PostHog/>
   </head>
   <body>
     <slot />
+    <script>
+      document.addEventListener("astro:after-swap", () =>
+        window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+      );
+    </script>
   </body>
 </html>
