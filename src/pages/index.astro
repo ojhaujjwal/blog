@@ -14,7 +14,7 @@ import ExperienceEntry from "@components/ExperienceEntry.astro";
       <h1 class="text-3xl font-bold sm:text-4xl text-skin-accent">{SITE.author}</h1>
       <p class="mt-1 text-lg text-skin-base/80">Senior Software Engineer</p>
       <p class="mt-4 max-w-xl leading-relaxed">
-        I am a Senior Software Engineer who unblocks business bottlenecks and uplifts engineering standards by designing heavy-typed, contract-tested systems rooted in Domain-Driven Design and event-driven architectures.
+        Senior Software Engineer specialising in Domain-Driven Design, hexagonal architecture, and distributed systems — I turn broken foundations into reliable, contract-driven platforms, design incremental migrations that keep things running, and ship flagship features on top of the work. Currently raising the bar on type safety, contract testing, and reliability.
       </p>
       <div class="mt-4">
         <Socials />
@@ -52,27 +52,14 @@ import ExperienceEntry from "@components/ExperienceEntry.astro";
         />
 
         <ExperienceEntry
-          role="Team Lead"
+          role="Team Lead → Senior Software Engineer"
           company="Shippit"
           location="Sydney"
-          period="AUG 2023 — FEB 2024"
+          period="SEP 2021 — FEB 2024"
           highlights={[
-            "Led the team in discovery and delivery on multiple iterations of a complex, one-of-a-kind logistics optimisation tool which required a deep understanding of logic frameworks and customer needs.",
-            "Collaborated with Design and Product to investigate integration solutions and provide recommendations to improve our reporting functionality.",
-            "Mentored fellow engineers and conducted code reviews to ensure software quality.",
-          ]}
-        />
-
-        <ExperienceEntry
-          role="Senior Software Engineer"
-          company="Shippit"
-          location="Sydney"
-          period="SEP 2021 — AUG 2023"
-          highlights={[
-            "Led feature implementation in backend (Node, TypeScript) and in frontend (React).",
-            "Implemented advanced monitoring and observability capabilities using DataDog to improve tech resilience.",
-            "Upgraded a critical Aurora Postgres database on prod with close to zero downtime.",
-            "Setup technical infra for multiple services on AWS with a proven track of handling millions of orders in a day.",
+            "Led the team in discovery and delivery of a complex, one-of-a-kind logistics optimisation tool — a courier-recommendation product line for merchants (Node/TypeScript + React).",
+            "Upgraded a critical Aurora Postgres database on prod with close to zero downtime, and built AWS infra handling millions of orders a day.",
+            "Promoted to Team Lead — mentored engineers to become feature leads, ran code reviews, and partnered with Design and Product on technical feasibility across product discovery initiatives",
           ]}
         />
 
@@ -81,6 +68,7 @@ import ExperienceEntry from "@components/ExperienceEntry.astro";
           company="The Iconic"
           location="Sydney"
           period="APR 2019 — SEP 2021"
+          collapsible
           highlights={[
             "Migrated integration of multiple third party systems smoothly, resulting in zero downtime for our user base.",
             "Introduced Domain Driven Design and CQRS to architecture a new PHP-based microservice.",
@@ -90,29 +78,37 @@ import ExperienceEntry from "@components/ExperienceEntry.astro";
           ]}
         />
 
-        <ExperienceEntry
-          role="Software Engineer"
-          company="Logpoint"
-          period="OCT 2017 — MAR 2019"
-        />
+        <details class="group">
+          <summary class="flex cursor-pointer list-none items-center justify-between">
+            <h3 class="font-medium">Earlier career <span class="text-sm font-normal text-skin-base/60">— Logpoint · Introcept Nepal · Yiwii · Hrevert (2013–2019)</span></h3>
+            <span class="ml-2 shrink-0 text-skin-base/60 transition-transform group-open:rotate-90">▸</span>
+          </summary>
+          <div class="mt-3 space-y-4">
+            <ExperienceEntry
+              role="Software Engineer"
+              company="Logpoint"
+              period="OCT 2017 — MAR 2019"
+            />
 
-        <ExperienceEntry
-          role="Software Engineer"
-          company="Introcept Nepal"
-          period="AUG 2016 — SEP 2017"
-        />
+            <ExperienceEntry
+              role="Software Engineer"
+              company="Introcept Nepal"
+              period="AUG 2016 — SEP 2017"
+            />
 
-        <ExperienceEntry
-          role="Software Engineer (Contracting)"
-          company="Yiwii LLC"
-          period="AUG 2015 — AUG 2016"
-        />
+            <ExperienceEntry
+              role="Software Engineer (Contracting)"
+              company="Yiwii LLC"
+              period="AUG 2015 — AUG 2016"
+            />
 
-        <ExperienceEntry
-          role="Software Developer"
-          company="Hrevert Technologies"
-          period="MAY 2013 — AUG 2015"
-        />
+            <ExperienceEntry
+              role="Software Developer"
+              company="Hrevert Technologies"
+              period="MAY 2013 — AUG 2015"
+            />
+          </div>
+        </details>
 
       </div>
     </section>
