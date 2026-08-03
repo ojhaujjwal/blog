@@ -5,6 +5,7 @@ export interface Props {
   ariaLabel?: string;
   title?: string;
   disabled?: boolean;
+  dataSocial?: string;
 }
 
 const {
@@ -13,6 +14,7 @@ const {
   ariaLabel,
   title,
   disabled = false,
+  dataSocial,
 } = Astro.props;
 ---
 
@@ -31,6 +33,7 @@ const {
       class:list={["group inline-block hover:text-skin-accent", className]}
       aria-label={ariaLabel}
       title={title}
+      data-social={dataSocial}
     >
       <slot />
     </a>

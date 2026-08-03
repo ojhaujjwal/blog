@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Print/show utilities — global so they work across component boundaries */
+.print-only {
+  display: none;
+}
+
+@media print {
+  .print-only {
+    display: block !important;
+  }
+  .print-hide {
+    display: none !important;
+  }
+}
+
 @layer base {
   :root,
   html[data-theme="light"] {

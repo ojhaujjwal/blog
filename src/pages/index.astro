@@ -11,13 +11,26 @@ import ExperienceEntry from "@components/ExperienceEntry.astro";
   <main id="main-content" class="mx-auto max-w-3xl px-4 pb-16 pt-8">
     <!-- Hero -->
     <section class="mb-14">
-      <h1 class="text-3xl font-bold sm:text-4xl text-skin-accent">{SITE.author}</h1>
-      <p class="mt-1 text-lg text-skin-base/80">Senior Software Engineer</p>
-      <p class="mt-4 max-w-xl leading-relaxed">
-        Senior Software Engineer specialising in Domain-Driven Design, hexagonal architecture, and distributed systems — I turn broken foundations into reliable, contract-driven platforms, design incremental migrations that keep things running, and ship flagship features on top of the work. Currently raising the bar on type safety, contract testing, and reliability.
-      </p>
-      <div class="mt-4">
-        <Socials />
+      <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+        <div class="max-w-xl">
+          <h1 class="text-3xl font-bold sm:text-4xl text-skin-accent">{SITE.author}</h1>
+          <p class="mt-4 leading-relaxed">
+            Senior Software Engineer specialising in Domain-Driven Design, hexagonal architecture, and distributed systems — I turn broken foundations into reliable, contract-driven platforms, design incremental migrations that keep things running, and ship flagship features on top of the work. Currently raising the bar on type safety, contract testing, and reliability.
+          </p>
+        </div>
+        <div class="flex flex-col items-start gap-2 sm:items-end">
+          <div class="sm:w-full sm:flex sm:justify-end">
+            <Socials />
+          </div>
+          <p class="flex flex-col gap-0.5 text-sm text-skin-base/70 sm:text-right">
+            <span>0411 440 539</span>
+            <a
+              href="mailto:me@ujjwalojha.com.np"
+              class="underline decoration-dashed underline-offset-4 hover:text-skin-accent"
+              >me@ujjwalojha.com.np</a
+            >
+          </p>
+        </div>
       </div>
     </section>
 
@@ -110,6 +123,33 @@ import ExperienceEntry from "@components/ExperienceEntry.astro";
           </div>
         </details>
 
+        <!-- Print-only: earlier entries shown in full, not grouped -->
+        <div class="print-only space-y-4">
+          <ExperienceEntry
+            role="Software Engineer"
+            company="Logpoint"
+            period="OCT 2017 — MAR 2019"
+          />
+
+          <ExperienceEntry
+            role="Software Engineer"
+            company="Introcept Nepal"
+            period="AUG 2016 — SEP 2017"
+          />
+
+          <ExperienceEntry
+            role="Software Engineer (Contracting)"
+            company="Yiwii LLC"
+            period="AUG 2015 — AUG 2016"
+          />
+
+          <ExperienceEntry
+            role="Software Developer"
+            company="Hrevert Technologies"
+            period="MAY 2013 — AUG 2015"
+          />
+        </div>
+
       </div>
     </section>
 
@@ -152,7 +192,7 @@ import ExperienceEntry from "@components/ExperienceEntry.astro";
     </section>
 
     <!-- Blog CTA -->
-    <section class="border-t border-dashed pt-8">
+    <section class="border-t border-dashed pt-8 print-hide">
       <p class="text-center">
         <a href="/blog/" class="text-lg underline decoration-dashed underline-offset-4 hover:text-skin-accent"
           >Read my blog &rarr;</a
@@ -167,5 +207,91 @@ import ExperienceEntry from "@components/ExperienceEntry.astro";
 <style>
   #main-content {
     @apply mx-auto w-full max-w-3xl px-4 pb-12;
+  }
+
+  /* Screen: hide print-only content */
+  .print-only {
+    display: none;
+  }
+
+  /* ===== Print / PDF export ===== */
+  @media print {
+    /* Force light theme colors regardless of the user's saved/system theme */
+    html,
+    html[data-theme="dark"] {
+      --color-fill: 251, 254, 251;
+      --color-text-base: 40, 39, 40;
+      --color-accent: 0, 108, 172;
+      --color-card: 230, 230, 230;
+      --color-card-muted: 205, 205, 205;
+      --color-border: 236, 233, 233;
+      color: rgb(var(--color-text-base)) !important;
+      background: rgb(var(--color-fill)) !important;
+    }
+    body {
+      @apply bg-skin-fill text-skin-base;
+    }
+
+    /* Tighter, paper-friendly type and spacing */
+    #main-content {
+      @apply max-w-none px-0 py-0;
+    }
+    .hero,
+    section,
+    footer {
+      @apply max-w-none px-0;
+    }
+    #main-content h1 {
+      @apply text-2xl;
+    }
+    #main-content p {
+      @apply text-sm leading-relaxed;
+    }
+    .text-skin-base\/80,
+    .text-skin-base\/60 {
+      color: rgb(var(--color-text-base)) !important;
+      opacity: 1;
+    }
+
+    /* Screen-only UI: blog CTA, footer, theme/social chrome */
+    /* (.print-hide / .print-only utilities live globally in base.css) */
+
+    /* Hide Twitter from the printed resume */
+    :global([data-social="Twitter"]) {
+      display: none !important;
+    }
+
+    /* Hide the site footer (copyright + socials) in print.
+       Scoped rules can't reach Footer's own <footer>, so make this global. */
+    :global(footer) {
+      display: none !important;
+    }
+
+    /* Earlier career: hidden in print (full entries rendered print-only below) */
+    details.group {
+      display: none !important;
+    }
+
+    /* Keep sections/bullets from splitting awkwardly */
+    section {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      margin-bottom: 1.25rem;
+    }
+    .experience-entry,
+    details.group > div > * {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    ul li {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    h1,
+    h2,
+    h3 {
+      break-after: avoid;
+      page-break-after: avoid;
+    }
   }
 </style>
