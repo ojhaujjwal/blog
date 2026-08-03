@@ -1,9 +1,9 @@
 ---
 import { SITE } from "@config";
 import Layout from "@layouts/Layout.astro";
-import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import Socials from "@components/Socials.astro";
+import ExperienceEntry from "@components/ExperienceEntry.astro";
 ---
 
 <Layout title={`${SITE.title} — Senior Software Engineer`}>
@@ -26,94 +26,93 @@ import Socials from "@components/Socials.astro";
       <h2 class="mb-6 text-xl font-semibold tracking-wide">Experience</h2>
       <div class="space-y-8">
 
-        <div>
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
-            <h3 class="font-medium">Senior Software Engineer — <span class="text-skin-accent">Maytes</span>, North Sydney</h3>
-            <span class="text-sm text-skin-base/60">APR 2024 — Present</span>
-          </div>
-          <ul class="mt-2 list-disc pl-5 space-y-1 text-sm leading-relaxed">
-            <li>Led the setup of OpenAPI based API to enable ease of integration for mobile apps.</li>
-            <li>Led the rewrite of legacy systems towards modular (event driven and contract driven) architecture of monolithic backend, while also supporting business to add new features.</li>
-            <li>Co-led the architecture and migration plan of moving Banking Platform from Shaype to Airwallex to enable the company to launch the product in the US.</li>
-          </ul>
-        </div>
+        <ExperienceEntry
+          role="Senior Software Engineer"
+          company="Ubank"
+          location="Sydney"
+          period="APR 2025 — Present"
+          highlights={[
+            "Set the technical strategy for type safety and contract testing — designed an incremental strict-null-checks rollout and enforced runtime response validation so services comply with their OpenAPI specs and clients can trust generated contracts.",
+            "Championed the migration from store-managed API state to TanStack Query — authored the RFC and designed a backporting mechanism that keeps the legacy store in sync while new features migrate incrementally, proven on accounts, the most legacy-heavy part of the banking app.",
+            "Raised the bar on production reliability and security as a product engineer — built a startup config gate that blocks misconfigured pods from being promoted, so missing or invalid config fails at deploy time instead of at runtime, and stopped secrets from leaking into logs at the source.",
+          ]}
+        />
 
-        <div>
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
-            <h3 class="font-medium">Team Lead — <span class="text-skin-accent">Shippit</span>, Sydney</h3>
-            <span class="text-sm text-skin-base/60">AUG 2023 — FEB 2024</span>
-          </div>
-          <ul class="mt-2 list-disc pl-5 space-y-1 text-sm leading-relaxed">
-            <li>Led the team in discovery and delivery on multiple iterations of a complex, one-of-a-kind logistics optimisation tool which required a deep understanding of logic frameworks and customer needs.</li>
-            <li>Collaborated with Design and Product to investigate integration solutions and provide recommendations to improve our reporting functionality.</li>
-            <li>Mentored fellow engineers and conducted code reviews to ensure software quality.</li>
-          </ul>
-        </div>
+        <ExperienceEntry
+          role="Senior Software Engineer"
+          company="Maytes"
+          location="North Sydney"
+          period="APR 2024 — APR 2025"
+          highlights={[
+            "Made a broken foundation production-safe — inherited an API where every endpoint returned HTTP 200 with `status: false` in the body and a failing test suite; established a JSON API error standard with string error codes, and revived the tests end-to-end until green on CI.",
+            "Made the API contract enforceable — authored the OpenAPI spec, built a v2 middleware validating requests and responses against it, generated the core banking provider's SDK from the spec, and stood up a mock provider so every banking gateway could be contract-tested.",
+            "Rebuilt the platform around modules and events — modular, hexagonal services with explicit ports, a banking-gateway abstraction, and EventBridge pub-sub with DLQs; defended the event-driven direction under pressure rather than falling back to synchronous dispatchers.",
+            "Delivered the flagship product on the new foundation — led the breakdown, sequencing, and delivery of expense splitting, a new kind of offering, released on top of the contract-driven platform.",
+          ]}
+        />
 
-        <div>
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
-            <h3 class="font-medium">Senior Software Engineer — <span class="text-skin-accent">Shippit</span>, Sydney</h3>
-            <span class="text-sm text-skin-base/60">SEP 2021 — AUG 2023</span>
-          </div>
-          <ul class="mt-2 list-disc pl-5 space-y-1 text-sm leading-relaxed">
-            <li>Led feature implementation in backend (Node, TypeScript) and in frontend (React).</li>
-            <li>Implemented advanced monitoring and observability capabilities using DataDog to improve tech resilience.</li>
-            <li>Upgraded a critical Aurora Postgres database on prod with close to zero downtime.</li>
-            <li>Setup technical infra for multiple services on AWS with a proven track of handling millions of orders in a day.</li>
-          </ul>
-        </div>
+        <ExperienceEntry
+          role="Team Lead"
+          company="Shippit"
+          location="Sydney"
+          period="AUG 2023 — FEB 2024"
+          highlights={[
+            "Led the team in discovery and delivery on multiple iterations of a complex, one-of-a-kind logistics optimisation tool which required a deep understanding of logic frameworks and customer needs.",
+            "Collaborated with Design and Product to investigate integration solutions and provide recommendations to improve our reporting functionality.",
+            "Mentored fellow engineers and conducted code reviews to ensure software quality.",
+          ]}
+        />
 
-        <div>
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
-            <h3 class="font-medium">Software Engineer — <span class="text-skin-accent">The Iconic</span>, Sydney</h3>
-            <span class="text-sm text-skin-base/60">APR 2019 — SEP 2021</span>
-          </div>
-          <ul class="mt-2 list-disc pl-5 space-y-1 text-sm leading-relaxed">
-            <li>Migrated integration of multiple third party systems smoothly, resulting in zero downtime for our user base.</li>
-            <li>Introduced Domain Driven Design and CQRS to architecture a new PHP-based microservice.</li>
-            <li>Contributed to troubleshooting and resolving website outages and prepared subsequent incident reports.</li>
-            <li>Automated end-to-end CI build and deployment for new services using Kubernetes and Terraform on AWS.</li>
-            <li>Re-engineered PHP/JS microservices to handle increased traffic.</li>
-          </ul>
-        </div>
+        <ExperienceEntry
+          role="Senior Software Engineer"
+          company="Shippit"
+          location="Sydney"
+          period="SEP 2021 — AUG 2023"
+          highlights={[
+            "Led feature implementation in backend (Node, TypeScript) and in frontend (React).",
+            "Implemented advanced monitoring and observability capabilities using DataDog to improve tech resilience.",
+            "Upgraded a critical Aurora Postgres database on prod with close to zero downtime.",
+            "Setup technical infra for multiple services on AWS with a proven track of handling millions of orders in a day.",
+          ]}
+        />
 
-        <div>
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
-            <h3 class="font-medium">Software Engineer — <span class="text-skin-accent">Logpoint</span></h3>
-            <span class="text-sm text-skin-base/60">OCT 2017 — MAR 2019</span>
-          </div>
-          <ul class="mt-2 list-disc pl-5 space-y-1 text-sm leading-relaxed">
-            <li>Worked on a distributed system for Managed Security Service Provider (MSSP).</li>
-            <li>Collaborated with other engineering teams to ensure API compatibility and smoothly develop new features.</li>
-            <li>Engineered an event-based system to scale the distributed system of MSSP asynchronously.</li>
-            <li>Engineered a system for MSSP to be able to handle multiple versions of a SIEM system.</li>
-            <li>Utilised background job scaling tools including RabbitMQ to design features.</li>
-          </ul>
-        </div>
+        <ExperienceEntry
+          role="Software Engineer"
+          company="The Iconic"
+          location="Sydney"
+          period="APR 2019 — SEP 2021"
+          highlights={[
+            "Migrated integration of multiple third party systems smoothly, resulting in zero downtime for our user base.",
+            "Introduced Domain Driven Design and CQRS to architecture a new PHP-based microservice.",
+            "Contributed to troubleshooting and resolving website outages and prepared subsequent incident reports.",
+            "Automated end-to-end CI build and deployment for new services using Kubernetes and Terraform on AWS.",
+            "Re-engineered PHP/JS microservices to handle increased traffic.",
+          ]}
+        />
 
-        <div>
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
-            <h3 class="font-medium">Software Engineer — <span class="text-skin-accent">Introcept Nepal</span></h3>
-            <span class="text-sm text-skin-base/60">AUG 2016 — SEP 2017</span>
-          </div>
-          <ul class="mt-2 list-disc pl-5 space-y-1 text-sm leading-relaxed">
-            <li>Worked on Agentcis, a SaaS CRM solution for education and migration consultants.</li>
-          </ul>
-        </div>
+        <ExperienceEntry
+          role="Software Engineer"
+          company="Logpoint"
+          period="OCT 2017 — MAR 2019"
+        />
 
-        <div>
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
-            <h3 class="font-medium">Software Engineer (Contracting) — <span class="text-skin-accent">Yiwii LLC</span></h3>
-            <span class="text-sm text-skin-base/60">AUG 2015 — AUG 2016</span>
-          </div>
-        </div>
+        <ExperienceEntry
+          role="Software Engineer"
+          company="Introcept Nepal"
+          period="AUG 2016 — SEP 2017"
+        />
 
-        <div>
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
-            <h3 class="font-medium">Software Developer — <span class="text-skin-accent">Hrevert Technologies</span></h3>
-            <span class="text-sm text-skin-base/60">MAY 2013 — AUG 2015</span>
-          </div>
-        </div>
+        <ExperienceEntry
+          role="Software Engineer (Contracting)"
+          company="Yiwii LLC"
+          period="AUG 2015 — AUG 2016"
+        />
+
+        <ExperienceEntry
+          role="Software Developer"
+          company="Hrevert Technologies"
+          period="MAY 2013 — AUG 2015"
+        />
 
       </div>
     </section>
