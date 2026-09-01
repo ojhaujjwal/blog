@@ -16,7 +16,7 @@ Every function that can fail has a secret. We just don't write it down.
 
 Take `chargePayment(order)`. It charges a card, or it fails: insufficient funds, card expired, upstream ledger is down.
 
-The failure is part of the function's behavior as surely as the success case. But in most languages it's shoved into a side channel, an exception, that is barely better than a `goto` to the top of the stack. We tell ourselves exceptions are for "exceptional" situations, but we're treating errors as crash events for the runtime when we should treat them as contracts for the caller. And a contract nobody is forced to read isn't a contract: nothing about a thrown error is ever checked, so the compiler, the one tool that enforces contracts, never gets invited to the conversation.
+The failure is part of the function's behavior as surely as the success case. But in most languages it's shoved into a side channel, an exception, that is barely better than a `goto` to the top of the stack. We tell ourselves exceptions are for "exceptional" situations, but we're treating errors as crash events for the runtime when we should treat them as contracts for the caller. And a contract nobody is forced to read isn't a contract: nothing about a thrown error is ever checked. The compiler never sees it.
 
 ## The error is a return type
 
@@ -26,14 +26,14 @@ If `chargePayment` can fail with `insufficient_funds`, then "I might return a pa
 
 In TypeScript the simplest way to model that second channel is `Result<T, E> = { ok: true; value: T } | { ok: false; error: E }`. It's a second return value the type checker forces you to handle.
 
-But the tools we reach for, `throw` and `try/catch` and the `Error` class, were designed for the opposite mental model: a crash, not a return. Throw abandons the current function and each caller until it hits a catch, then stops the program and prints a message for a human to read. The error is an event that happened *to* the system, not a value the system *returns*.
+But the tools we reach for, `throw` and `try/catch` and the `Error` class, were designed for the opposite mental model: a crash, not a return. Throw abandons the current function and each caller until it hits a catch, then stops the program and prints a message for a human to read. The error is an event that happened to the system, not a value the system returns.
 
 ## Two audiences, one object
 
 Every error we throw has at least two different consumers, and they want completely different things:
 
 - **The internal / observer audience.** The human debugging at 3am, the log aggregator, the crash reporter. They want a readable story, *what happened, in English,* plus a stack trace for context. A free-form message string may be good for that case.
-- **The external / contract audience.** The *calling code*: the `catch` block, the next function in the pipeline, the API layer deciding what HTTP status to return. They don't want a story. They want to discriminate ("which kind of error is this?"), extract structured data ("why did payment fail? is the upstream retriable?"), and decide ("retry, fall back, or propagate?").
+- **The external / contract audience.** The *calling code*: the `catch` block, the next function in the pipeline, the API layer deciding what HTTP status to return. They don't want a story. They want to tell one failure from another ("is this insufficient funds or an expired card?"), pull out the facts ("why did payment fail? is the upstream retriable?"), and decide what to do ("retry, fall back, or propagate?").
 
 The disaster is that we model both audiences with a single object, and we let the observer's needs dominate. The `message` string becomes the error's centerpiece, because it's what the human wants. But the caller can't do anything useful with a string.
 
@@ -58,8 +58,6 @@ This is broken on every axis:
 - It branches on a human-readable string. "insufficient funds" vs "Insufficient Funds" vs "insufficient_funds" vs the localized message breaks it. The thing the caller depends on is the thing the observer controls.
 - It carries no structured data. Where does the `attemptId` or `retriable` flag come from? Re-parsed out of the message, or a magic constant.
 - It's fragile across boundaries. The alternative, `if (e instanceof PaymentFailedError)`, only works if both sides share the exact same class instance, which silently breaks the moment the error crosses a process, a bundle, or a deserialization boundary.
-
-The language doesn't help. The one primitive is `new Error(message)`: a crash event and a string, with no first-class place for "this is a *kind* of error" or "here is the payload a caller needs." You can bolt properties on afterward (`err.attemptId = "abc123"`), but it's ad hoc, untyped, and invisible to the type checker. The contract was never written down because the primitive doesn't let us write it down.
 
 ## The halfway house: a proper exception
 
@@ -112,9 +110,9 @@ and ship. Nothing breaks. Every call site that catches payment errors compiles e
 
 **The default is propagation, not handling.** `throw` doesn't ask the caller to decide. It unwinds past every function until it hits a `catch`, often one written for a different failure. A returned error is the opposite: it sits in the caller's hands, unhandled and unignorable, nagging the compiler until someone deals with it.
 
-The obvious rebuttal is Java. It tried checked exceptions, and a generation of developers learned to hate them. But Java's failure was the mechanism, not the goal. The tax was `throws` clauses spelled out by hand on every signature down the call stack, even at the middle layers that only pass errors along. The trapdoor was extending `RuntimeException`: silently unchecked again, zero compile errors. That's why the ecosystem opted out. What I want is the checking without the tax or the trapdoor: errors that declare themselves as they compose, get checked where they're handled (not by every bystander in the stack), and travel in the type that's already there, the return type.
+The obvious rebuttal is Java. It tried checked exceptions, and a generation of developers learned to hate them. The idea wasn't wrong; the price was. The tax was `throws` clauses spelled out by hand on every signature down the call stack, even at the middle layers that only pass errors along. The trapdoor was extending `RuntimeException`: silently unchecked again, zero compile errors. That's why the ecosystem opted out. What I want is the checking without the tax or the trapdoor: errors that declare themselves as they compose, get checked where they're handled (not by every bystander in the stack), and travel in the type that's already there, the return type.
 
-The fix is a shift in what we expect an error to *be*. An error at a boundary is a value with a public shape, and that shape puts the caller first: a stable discriminator to switch on, immune to wording, localization, and refactors; typed, structured properties carrying the actual data of the failure, declared instead of parsed; and a message, optional and last, for the observer only. The message gets demoted from "the error" to "a nice-to-have for logs." The tag and the payload *become* the error.
+The fix is a shift in what we expect an error to be. An error at a boundary is a value with a public shape, and that shape puts the caller first: a stable discriminator to switch on, immune to wording, localization, and refactors; typed, structured properties carrying the actual data of the failure, declared instead of parsed; and a message, optional and last, for the observer only. The message gets demoted from "the error" to "a nice-to-have for logs." The discriminator and the payload *become* the error.
 
 ## What good looks like
 
