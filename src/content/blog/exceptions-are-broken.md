@@ -137,3 +137,7 @@ You don't need a new library to apply the idea. You need the mindset. The error 
 None of this gives up production debugging. The log becomes a projection of the contract: one function at the boundary renders `_tag` and the payload (`payment.failed reason=insufficient_funds attempt=abc123`) with the stack captured at the failure site. You gain fields you can query instead of prose you can only read.
 
 Serve the caller first. The log is a projection of the contract, not a substitute for one.
+
+---
+
+*This post was written with AI assistance. The ideas are my own.*
