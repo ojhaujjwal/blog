@@ -1,7 +1,7 @@
 ---
 author: Ujjwal Ojha
 pubDatetime: 2026-09-01T10:00:00+10:00
-title: "The Error Is a Value"
+title: "Practical Guide on Error as Value"
 slug: practical-error-as-a-value
 featured: false
 draft: true
@@ -29,7 +29,19 @@ Each function returns its errors the way Part 1 demands. Thus each one gets the 
 
 ```ts
 const user = await fetchUser("u_123");
-if (!user.ok)
+if (user.ok) {
+  const charged = await chargePayment(user.value.activeOrder);
+  if (charged.ok) {
+    const sent = await sendReceipt(charged.value);
+    if (sent.ok) return sent.value;
+    switch (sent.error._tag) {
+      /* …same switch, deeper still */
+    }
+  } else
+    switch (charged.error._tag) {
+      /* …same switch, one level deeper */
+    }
+} else
   switch (user.error._tag) {
     case "NotFound":
       return showUser("No such user");
@@ -38,29 +50,13 @@ if (!user.ok)
       return fail(_exhaustive);
     }
   }
-
-const charged = await chargePayment(user.value.activeOrder);
-if (!charged.ok)
-  switch (
-    charged.error._tag
-    /* …same switch, one level deeper */
-  ) {
-  }
-
-const sent = await sendReceipt(charged.value);
-if (!sent.ok)
-  switch (
-    sent.error._tag
-    /* …same switch, deeper still */
-  ) {
-  }
-
-return sent.value;
 ```
 
 Each `await` needs another switch. Each switch is almost a copy of the switch above it. It is one level deeper.
 
 The example does not show the second and third switch bodies. I left them out on purpose. If you write them out, you see the same switch again.
+
+You can keep this code flat with early returns. That works only when every handler ends the function. Add one step that continues, and the levels come back.
 
 The pattern is correct. But real workflows make sequential calls. For sequential calls, this pattern gives you nested switches.
 
@@ -246,48 +242,7 @@ This has the same behavior as the pyramid at the start of the post. Every tag is
 
 Both audiences get served at one place. The caller gets the switch. The observer gets `log.error("order.failed", { tag: e._tag, ...e })` — structured fields, not prose. Two audiences, one object, no conflict.
 
-Here is all the code together:
-
-```ts
-type Result<T, E> = { ok: true; value: T } | { ok: false; error: E };
-
-const ok = <T>(value: T): Result<T, never> => ({ ok: true, value });
-const err = <E>(error: E): Result<never, E> => ({ ok: false, error });
-
-const map =
-  <A, B>(f: (a: A) => B) =>
-  <E>(m: Promise<Result<A, E>>): Promise<Result<B, E>> =>
-    m.then(r => (r.ok ? ok(f(r.value)) : r));
-
-const flatMap =
-  <A, B, E2>(f: (a: A) => Promise<Result<B, E2>>) =>
-  async <E>(m: Promise<Result<A, E>>): Promise<Result<B, E | E2>> => {
-    const r = await m;
-    return r.ok ? f(r.value) : err(r.error);
-  };
-
-const mapError =
-  <E, F>(f: (e: E) => F) =>
-  <A>(m: Promise<Result<A, E>>): Promise<Result<A, F>> =>
-    m.then(r => (r.ok ? r : err(f(r.error))));
-
-const match =
-  <A, E, Out>(handlers: { ok: (value: A) => Out; err: (error: E) => Out }) =>
-  (m: Promise<Result<A, E>>): Promise<Out> =>
-    m.then(r => (r.ok ? handlers.ok(r.value) : handlers.err(r.error)));
-
-function pipe<A>(a: A): A;
-function pipe<A, B = never>(a: A, ab: (a: A) => B): B;
-function pipe<A, B = never, C = never>(
-  a: A,
-  ab: (a: A) => B,
-  bc: (b: B) => C
-): C;
-// …two more overloads, same shape, up to five arguments
-function pipe(a: unknown, ...fs: Array<(x: any) => unknown>): unknown {
-  return fs.reduce((x, f) => f(x), a);
-}
-```
+Here is all the code together: [practical-error-as-value.ts](https://gist.github.com/ojhaujjwal/836913f925f96c7c3455232f1970ddf5)
 
 About thirty lines. The error is a value, so it gets the tools that every value gets. That is the whole idea. Now we look at four limits of this code.
 
