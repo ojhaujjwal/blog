@@ -6,6 +6,7 @@ import Tag from "@components/Tag.astro";
 import Datetime from "@components/Datetime";
 import type { CollectionEntry } from "astro:content";
 import { slugifyStr } from "@utils/slugify";
+import { buildOgImageUrl } from "@utils/ogImageUrl";
 import ShareLinks from "@components/ShareLinks.astro";
 import { SITE } from "@config";
 
@@ -30,10 +31,10 @@ const {
 const { Content } = await post.render();
 
 const ogImageUrl = typeof ogImage === "string" ? ogImage : ogImage?.src;
-const ogUrl = new URL(
+const ogUrl = buildOgImageUrl(
   ogImageUrl ?? `/blog/posts/${post.slug}.png`,
-  Astro.url.origin
-).href;
+  Astro.url.origin,
+);
 
 const layoutProps = {
   title: `${title} | ${SITE.title}`,

@@ -1,5 +1,6 @@
 ---
 import { LOCALE, SITE } from "@config";
+import { buildOgImageUrl } from "@utils/ogImageUrl";
 import "@styles/base.css";
 import { ViewTransitions } from "astro:transitions";
 import PostHog from '../components/posthog.astro'
@@ -30,10 +31,10 @@ const {
   scrollSmooth = false,
 } = Astro.props;
 
-const socialImageURL = new URL(
+const socialImageURL = buildOgImageUrl(
   ogImage ?? SITE.ogImage ?? "og.png",
-  Astro.url.origin
-).href;
+  Astro.url.origin,
+);
 
 const structuredData = {
   "@context": "https://schema.org",
