@@ -141,7 +141,7 @@ Each workaround is useful. None of them gives all async work one owner, one life
 
 ## Part II: Effect Uses a Different Model
 
-Effect does not treat an asynchronous operation as a result that already exists. It represents the operation as a lazy program. The program describes what to do. Running it starts the work.
+[Effect](https://effect.website/docs/v4/resource-management/introduction) does not treat an asynchronous operation as a result that already exists. It represents the operation as a lazy program. The program describes what to do. Running it starts the work.
 
 A fiber is the running instance of an Effect. The runtime can compose fibers, interrupt them, and supervise their child fibers.
 
