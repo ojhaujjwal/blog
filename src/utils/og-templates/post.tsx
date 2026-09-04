@@ -9,6 +9,10 @@ export default async (post: CollectionEntry<"blog">) => {
     day: "numeric",
   });
 
+  // Long titles at the default size overflow into the description.
+  const titleSize =
+    post.data.title.length > 90 ? 38 : post.data.title.length > 55 ? 46 : 60;
+
   return satori(
     <div
       style={{
@@ -69,7 +73,7 @@ export default async (post: CollectionEntry<"blog">) => {
           >
             <p
               style={{
-                fontSize: 60,
+                fontSize: titleSize,
                 fontWeight: "bold",
                 lineHeight: 1.2,
                 marginBottom: 16,
