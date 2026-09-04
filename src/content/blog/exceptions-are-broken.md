@@ -3,7 +3,7 @@ author: Ujjwal Ojha
 pubDatetime: 2026-09-01T10:00:00+10:00
 title: "Exceptions Are Broken: Errors as Contracts, Not Crashes"
 slug: exceptions-are-broken
-featured: true
+featured: false
 draft: false
 description: We treat errors as crash events for the runtime when we should treat them as contracts for the caller, with stable tags, typed payloads, and messages demoted to logs.
 tags:

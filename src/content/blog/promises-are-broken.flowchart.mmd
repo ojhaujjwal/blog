@@ -1,0 +1,12 @@
+%% Source for the diagram in promises-are-broken.md
+%% ("Context Carries Request Data" section).
+%% Regenerate the SVG from the repo root with:
+%%   npx -y @mermaid-js/mermaid-cli \
+%%     -i src/content/blog/promises-are-broken.flowchart.mmd \
+%%     -o public/assets/fiber-context.svg
+flowchart TD
+parent["Parent fiber"]
+parent --> requestA["Request A"]
+parent --> requestB["Request B"]
+requestA --> childA["Child reads subject-a"]
+requestB --> childB["Child reads subject-b"]
